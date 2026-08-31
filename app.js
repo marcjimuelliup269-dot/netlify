@@ -60,9 +60,17 @@ function ensureStudentId(student, index) {
     name: student.name || "Unnamed student",
     className: student.className || "Unassigned",
     status: student.status || "Present",
-    checkInTime: student.checkInTime || "—",
+    checkInTime: student.checkInTime || "N/A",
     note: student.note || ""
   };
+}
+
+function isLegacyData(data) {
+  const classNames = (data.classes || []).map((item) => item.name || "");
+  const students = data.students || [];
+  const hasOldSchoolNames = classNames.some((name) => ["Grade 1", "Grade 2", "Grade 3", "Grade 4"].includes(name));
+  const hasOldStudentNames = students.some((student) => (student && student.className && ["Grade 1", "Grade 2", "Grade 3", "Grade 4"].includes(student.className)));
+  return hasOldSchoolNames || hasOldStudentNames;
 }
 
 function buildClassesFromStudents(students) {
@@ -139,9 +147,14 @@ async function loadData() {
   const cachedData = localStorage.getItem(STORAGE_KEY);
   if (cachedData) {
     try {
-      return normalizeData(JSON.parse(cachedData));
+      const parsed = JSON.parse(cachedData);
+      if (!isLegacyData(parsed)) {
+        return normalizeData(parsed);
+      }
+      localStorage.removeItem(STORAGE_KEY);
     } catch (error) {
       console.warn("Cached data invalid, falling back to source data.", error);
+      localStorage.removeItem(STORAGE_KEY);
     }
   }
 
@@ -288,7 +301,7 @@ function setFormForEdit(student) {
   document.getElementById("studentName").value = student.name;
   studentClassField.value = student.className;
   document.getElementById("studentStatus").value = student.status;
-  document.getElementById("checkInTime").value = student.checkInTime === "—" ? "" : student.checkInTime;
+  document.getElementById("checkInTime").value = student.checkInTime === "N/A" ? "" : student.checkInTime;
   document.getElementById("studentNote").value = student.note || "";
   formTitle.textContent = "Edit Attendance Record";
   submitBtn.textContent = "Update Record";
@@ -321,7 +334,7 @@ function handleFormSubmit(event) {
         name: studentName,
         className,
         status,
-        checkInTime: checkInTime || "—",
+        checkInTime: checkInTime || "N/A",
         note
       };
     });
@@ -332,7 +345,7 @@ function handleFormSubmit(event) {
       name: studentName,
       className,
       status,
-      checkInTime: checkInTime || "—",
+      checkInTime: checkInTime || "N/A",
       note
     };
     nextStudents = [...nextStudents, newStudent];
