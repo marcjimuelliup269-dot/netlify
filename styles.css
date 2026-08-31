@@ -10,6 +10,8 @@
   --amber-soft: rgba(244, 168, 43, 0.14);
   --purple: #7a5af8;
   --purple-soft: rgba(122, 90, 248, 0.12);
+  --red: #d34d51;
+  --red-soft: rgba(211, 77, 81, 0.1);
   --text: #14213d;
   --muted: #66718a;
   --line: #e7ebf2;
@@ -155,12 +157,116 @@ h1 {
   font-size: 0.8rem;
 }
 
-select {
-  border: none;
-  background: transparent;
+select,
+input,
+textarea,
+button {
   font: inherit;
+}
+
+select,
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fff;
   color: var(--text);
   outline: none;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  border-color: rgba(40, 89, 217, 0.35);
+  box-shadow: 0 0 0 4px rgba(40, 89, 217, 0.08);
+}
+
+.attendance-form {
+  display: grid;
+  gap: 18px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn,
+.secondary-btn,
+.danger-btn,
+.mini-btn {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #edf3ff;
+  color: var(--primary);
+}
+
+.danger-btn {
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.mini-btn {
+  padding: 8px 10px;
+  font-size: 0.78rem;
+}
+
+.edit-btn {
+  background: rgba(40, 89, 217, 0.1);
+  color: var(--primary);
+}
+
+.delete-btn {
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.form-message {
+  min-height: 20px;
+  margin: 0;
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .class-grid {
@@ -267,8 +373,8 @@ tbody tr:hover {
 }
 
 .status-absent {
-  background: rgba(230, 73, 74, 0.1);
-  color: #d34d51;
+  background: var(--red-soft);
+  color: var(--red);
 }
 
 .status-late {
@@ -284,7 +390,8 @@ tbody tr:hover {
 
 @media (max-width: 560px) {
   .topbar,
-  .panel-header {
+  .panel-header,
+  .form-actions {
     flex-direction: column;
     align-items: flex-start;
   }

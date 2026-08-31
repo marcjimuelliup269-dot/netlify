@@ -39,6 +39,56 @@
           </article>
         </section>
 
+        <section class="panel manager-panel">
+          <div class="panel-header">
+            <h2 id="formTitle">Add Attendance Record</h2>
+          </div>
+
+          <form id="attendanceForm" class="attendance-form">
+            <input type="hidden" id="recordId" name="recordId" />
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Student Name</span>
+                <input id="studentName" name="studentName" type="text" placeholder="Enter student name" required />
+              </label>
+
+              <label class="field">
+                <span>Class</span>
+                <select id="studentClass" name="studentClass" required>
+                  <option value="">Select class</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Status</span>
+                <select id="studentStatus" name="studentStatus" required>
+                  <option value="Present">Present</option>
+                  <option value="Late">Late</option>
+                  <option value="Absent">Absent</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Check In Time</span>
+                <input id="checkInTime" name="checkInTime" type="time" />
+              </label>
+            </div>
+
+            <label class="field full-width">
+              <span>Notes</span>
+              <textarea id="studentNote" name="studentNote" rows="3" placeholder="Add a note or reason"></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn" id="submitBtn">Save Record</button>
+              <button type="button" class="secondary-btn" id="cancelEditBtn" hidden>Cancel</button>
+              <button type="button" class="danger-btn" id="resetBtn">Reset Demo Data</button>
+            </div>
+            <p id="formMessage" class="form-message" aria-live="polite"></p>
+          </form>
+        </section>
+
         <section class="panel class-panel">
           <div class="panel-header">
             <h2>Class Overview</h2>
@@ -65,6 +115,7 @@
                   <th>Status</th>
                   <th>Check In</th>
                   <th>Notes</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="attendanceTable"></tbody>
