@@ -1,4 +1,4 @@
-const STORAGE_KEY = "attendance-dashboard-data-v1";
+const STORAGE_KEY = "attendance-dashboard-data-v2";
 
 const fallbackData = {
   schoolName: "Northview Academy",
@@ -131,6 +131,11 @@ function saveToLocalStorage(data) {
 }
 
 async function loadData() {
+  const legacyKey = "attendance-dashboard-data-v1";
+  if (localStorage.getItem(legacyKey)) {
+    localStorage.removeItem(legacyKey);
+  }
+
   const cachedData = localStorage.getItem(STORAGE_KEY);
   if (cachedData) {
     try {
