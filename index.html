@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">School Overview</p>
+          <h1 id="schoolName">Attendance Dashboard</h1>
+        </div>
+        <div class="date-pill" id="dateLabel">Today</div>
+      </header>
+
+      <main class="dashboard">
+        <section class="stats-grid">
+          <article class="stat-card accent-blue">
+            <span>Total Students</span>
+            <strong id="totalStudents">0</strong>
+          </article>
+          <article class="stat-card accent-green">
+            <span>Present</span>
+            <strong id="presentCount">0</strong>
+          </article>
+          <article class="stat-card accent-amber">
+            <span>Absent</span>
+            <strong id="absentCount">0</strong>
+          </article>
+          <article class="stat-card accent-purple">
+            <span>Attendance Rate</span>
+            <strong id="attendanceRate">0%</strong>
+          </article>
+        </section>
+
+        <section class="panel class-panel">
+          <div class="panel-header">
+            <h2>Class Overview</h2>
+            <label class="filter-wrap">
+              <span>Filter</span>
+              <select id="classFilter">
+                <option value="all">All Classes</option>
+              </select>
+            </label>
+          </div>
+          <div id="classCards" class="class-grid"></div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-header">
+            <h2>Daily Attendance Log</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Class</th>
+                  <th>Status</th>
+                  <th>Check In</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

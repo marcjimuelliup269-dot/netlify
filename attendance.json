@@ -1,0 +1,27 @@
+{
+  "schoolName": "Northview Academy",
+  "date": "2026-08-31",
+  "summary": {
+    "totalStudents": 136,
+    "present": 124,
+    "absent": 12,
+    "late": 18,
+    "attendanceRate": 91.2
+  },
+  "classes": [
+    { "name": "Grade 1", "totalStudents": 24, "present": 22, "absent": 2, "late": 4, "attendanceRate": 91.7 },
+    { "name": "Grade 2", "totalStudents": 30, "present": 27, "absent": 3, "late": 6, "attendanceRate": 90.0 },
+    { "name": "Grade 3", "totalStudents": 28, "present": 26, "absent": 2, "late": 5, "attendanceRate": 92.9 },
+    { "name": "Grade 4", "totalStudents": 32, "present": 29, "absent": 3, "late": 7, "attendanceRate": 90.6 }
+  ],
+  "students": [
+    { "name": "Ava Martin", "className": "Grade 1", "status": "Present", "checkInTime": "08:15", "note": "On time" },
+    { "name": "Liam Chen", "className": "Grade 1", "status": "Late", "checkInTime": "08:32", "note": "Traffic delay" },
+    { "name": "Mia Johnson", "className": "Grade 2", "status": "Present", "checkInTime": "08:12", "note": "On time" },
+    { "name": "Noah Patel", "className": "Grade 2", "status": "Absent", "checkInTime": "—", "note": "Medical leave" },
+    { "name": "Olivia Williams", "className": "Grade 3", "status": "Present", "checkInTime": "08:10", "note": "On time" },
+    { "name": "Ethan Garcia", "className": "Grade 3", "status": "Late", "checkInTime": "08:40", "note": "Late arrival" },
+    { "name": "Sophia Brown", "className": "Grade 4", "status": "Present", "checkInTime": "08:07", "note": "On time" },
+    { "name": "Lucas Davis", "className": "Grade 4", "status": "Absent", "checkInTime": "—", "note": "Family emergency" }
+  ]
+}

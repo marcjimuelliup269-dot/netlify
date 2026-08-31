@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+
+media_folder: "static/images"
+public_folder: "/images"
+
+collections:
+  - name: "attendance"
+    label: "Attendance"
+    files:
+      - file: "attendance.json"
+        label: "Attendance Dashboard Data"
+        name: "attendance"
+        fields:
+          - { label: "School Name", name: "schoolName", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: "false" }
+          - label: "Summary"
+            name: summary
+            widget: object
+            fields:
+              - { label: "Total Students", name: "totalStudents", widget: "number" }
+              - { label: "Present", name: "present", widget: "number" }
+              - { label: "Absent", name: "absent", widget: "number" }
+              - { label: "Late", name: "late", widget: "number" }
+              - { label: "Attendance Rate", name: "attendanceRate", widget: "number", value_type: "float" }
+          - label: "Classes"
+            name: classes
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Class Name", name: "name", widget: "string" }
+              - { label: "Total Students", name: "totalStudents", widget: "number" }
+              - { label: "Present", name: "present", widget: "number" }
+              - { label: "Absent", name: "absent", widget: "number" }
+              - { label: "Late", name: "late", widget: "number" }
+              - { label: "Attendance Rate", name: "attendanceRate", widget: "number", value_type: "float" }
+          - label: "Students"
+            name: students
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Student Name", name: "name", widget: "string" }
+              - { label: "Class", name: "className", widget: "string" }
+              - { label: "Status", name: "status", widget: "select", options: ["Present", "Absent", "Late"] }
+              - { label: "Check In Time", name: "checkInTime", widget: "string", required: false }
+              - { label: "Notes", name: "note", widget: "string", required: false }
