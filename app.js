@@ -11,20 +11,20 @@ const fallbackData = {
     attendanceRate: 50
   },
   classes: [
-    { name: "Grade 1", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
-    { name: "Grade 2", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
-    { name: "Grade 3", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 },
-    { name: "Grade 4", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 }
+    { name: "1st Year College", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
+    { name: "2nd Year College", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
+    { name: "3rd Year College", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 },
+    { name: "4th Year College", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 }
   ],
   students: [
-    { id: "student-1", name: "Ava Martin", className: "Grade 1", status: "Present", checkInTime: "08:15", note: "On time" },
-    { id: "student-2", name: "Liam Chen", className: "Grade 1", status: "Late", checkInTime: "08:32", note: "Traffic delay" },
-    { id: "student-3", name: "Mia Johnson", className: "Grade 2", status: "Present", checkInTime: "08:12", note: "On time" },
-    { id: "student-4", name: "Noah Patel", className: "Grade 2", status: "Absent", checkInTime: "—", note: "Medical leave" },
-    { id: "student-5", name: "Olivia Williams", className: "Grade 3", status: "Present", checkInTime: "08:10", note: "On time" },
-    { id: "student-6", name: "Ethan Garcia", className: "Grade 3", status: "Late", checkInTime: "08:40", note: "Late arrival" },
-    { id: "student-7", name: "Sophia Brown", className: "Grade 4", status: "Present", checkInTime: "08:07", note: "On time" },
-    { id: "student-8", name: "Lucas Davis", className: "Grade 4", status: "Absent", checkInTime: "—", note: "Family emergency" }
+    { id: "student-1", name: "Maria Santos", className: "1st Year College", status: "Present", checkInTime: "08:15", note: "On time" },
+    { id: "student-2", name: "Luis Dela Cruz", className: "1st Year College", status: "Late", checkInTime: "08:32", note: "Heavy traffic" },
+    { id: "student-3", name: "Andrea Villanueva", className: "2nd Year College", status: "Present", checkInTime: "08:12", note: "On time" },
+    { id: "student-4", name: "Miguel Bautista", className: "2nd Year College", status: "Absent", checkInTime: "—", note: "Family emergency" },
+    { id: "student-5", name: "Rina Reyes", className: "3rd Year College", status: "Present", checkInTime: "08:10", note: "On time" },
+    { id: "student-6", name: "Gabriel Lim", className: "3rd Year College", status: "Late", checkInTime: "08:40", note: "Late arrival" },
+    { id: "student-7", name: "Sofia Ramos", className: "4th Year College", status: "Present", checkInTime: "08:07", note: "On time" },
+    { id: "student-8", name: "Christian Navarro", className: "4th Year College", status: "Absent", checkInTime: "—", note: "Medical leave" }
   ]
 };
 
