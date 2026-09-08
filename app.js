@@ -116,6 +116,11 @@ function isLegacyData(data) {
   return hasOldSchoolNames || hasOldStudentNames;
 }
 
+function hasStaleSchoolBranding(data) {
+  const schoolName = String(data.schoolName || "").toLowerCase();
+  return schoolName.includes("northview") || schoolName.includes("academy");
+}
+
 function buildClassesFromStudents(students) {
   const map = new Map();
 
@@ -191,7 +196,7 @@ async function loadData() {
   if (cachedData) {
     try {
       const parsed = JSON.parse(cachedData);
-      if (!isLegacyData(parsed)) {
+      if (!isLegacyData(parsed) && !hasStaleSchoolBranding(parsed)) {
         return normalizeData(parsed);
       }
       localStorage.removeItem(STORAGE_KEY);
