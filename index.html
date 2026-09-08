@@ -3,130 +3,282 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Attendance Dashboard</title>
+    <title>Northview Academy | Attendance Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <div class="page-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">School Overview</p>
-          <h1 id="schoolName">Attendance Dashboard</h1>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark">NA</div>
+          <div>
+            <p class="eyebrow">School Portal</p>
+            <h2>Northview</h2>
+          </div>
         </div>
-        <div class="date-pill" id="dateLabel">Today</div>
-      </header>
 
-      <main class="dashboard">
-        <section class="stats-grid">
-          <article class="stat-card accent-blue">
-            <span>Total Students</span>
-            <strong id="totalStudents">0</strong>
-          </article>
-          <article class="stat-card accent-green">
-            <span>Present</span>
-            <strong id="presentCount">0</strong>
-          </article>
-          <article class="stat-card accent-amber">
-            <span>Absent</span>
-            <strong id="absentCount">0</strong>
-          </article>
-          <article class="stat-card accent-purple">
-            <span>Attendance Rate</span>
-            <strong id="attendanceRate">0%</strong>
-          </article>
-        </section>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <button class="nav-btn active" data-target="dashboard">Dashboard</button>
+          <button class="nav-btn" data-target="students">Student Profiles</button>
+          <button class="nav-btn" data-target="charts">Attendance Chart</button>
+          <button class="nav-btn" data-target="reports">Reports</button>
+          <button class="nav-btn" data-target="admin">Admin Login</button>
+        </nav>
+      </aside>
 
-        <section class="panel manager-panel">
-          <div class="panel-header">
-            <h2 id="formTitle">Add Attendance Record</h2>
+      <main class="content-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">School Overview</p>
+            <h1 id="schoolName">Attendance Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="login-status" id="loginStatus">Guest View</span>
+            <button type="button" class="secondary-btn" id="themeToggle" aria-label="Toggle dark mode">Dark Mode</button>
+            <button type="button" class="primary-btn" id="openLoginBtn">Admin Login</button>
+          </div>
+        </header>
+
+        <section id="dashboard" class="tab-panel active">
+          <div class="stats-grid">
+            <article class="stat-card accent-blue">
+              <span>Total Students</span>
+              <strong id="totalStudents">0</strong>
+            </article>
+            <article class="stat-card accent-green">
+              <span>Present</span>
+              <strong id="presentCount">0</strong>
+            </article>
+            <article class="stat-card accent-amber">
+              <span>Absent</span>
+              <strong id="absentCount">0</strong>
+            </article>
+            <article class="stat-card accent-purple">
+              <span>Attendance Rate</span>
+              <strong id="attendanceRate">0%</strong>
+            </article>
           </div>
 
-          <form id="attendanceForm" class="attendance-form">
-            <input type="hidden" id="recordId" name="recordId" />
+          <div class="dashboard-grid">
+            <section class="panel manager-panel">
+              <div class="panel-header">
+                <h2 id="formTitle">Add Attendance Record</h2>
+              </div>
 
-            <div class="field-grid">
-              <label class="field">
-                <span>Student Name</span>
-                <input id="studentName" name="studentName" type="text" placeholder="Enter student name" required />
-              </label>
+              <form id="attendanceForm" class="attendance-form">
+                <input type="hidden" id="recordId" name="recordId" />
 
-              <label class="field">
-                <span>Year Level</span>
-                <select id="studentClass" name="studentClass" required>
-                  <option value="">Select year level</option>
-                  <option value="1st Year College">1st Year College</option>
-                  <option value="2nd Year College">2nd Year College</option>
-                  <option value="3rd Year College">3rd Year College</option>
-                  <option value="4th Year College">4th Year College</option>
+                <div class="field-grid">
+                  <label class="field">
+                    <span>Student Name</span>
+                    <input id="studentName" name="studentName" type="text" placeholder="Enter student name" required />
+                  </label>
+
+                  <label class="field">
+                    <span>Year Level</span>
+                    <select id="studentClass" name="studentClass" required>
+                      <option value="">Select year level</option>
+                      <option value="1st Year College">1st Year College</option>
+                      <option value="2nd Year College">2nd Year College</option>
+                      <option value="3rd Year College">3rd Year College</option>
+                      <option value="4th Year College">4th Year College</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>Status</span>
+                    <select id="studentStatus" name="studentStatus" required>
+                      <option value="Present">Present</option>
+                      <option value="Late">Late</option>
+                      <option value="Absent">Absent</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>Check In Time</span>
+                    <input id="checkInTime" name="checkInTime" type="time" />
+                  </label>
+                </div>
+
+                <label class="field full-width">
+                  <span>Notes</span>
+                  <textarea id="studentNote" name="studentNote" rows="3" placeholder="Add a note or reason"></textarea>
+                </label>
+
+                <div class="form-actions">
+                  <button type="submit" class="primary-btn" id="submitBtn">Save Record</button>
+                  <button type="button" class="secondary-btn" id="cancelEditBtn" hidden>Cancel</button>
+                  <button type="button" class="danger-btn" id="resetBtn">Reset Demo Data</button>
+                </div>
+                <p id="formMessage" class="form-message" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <aside class="panel insight-panel">
+              <div class="panel-header compact">
+                <h2>Quick Insight</h2>
+              </div>
+              <ul class="insight-list">
+                <li>
+                  <span>Peak attendance</span>
+                  <strong>1st Year College</strong>
+                </li>
+                <li>
+                  <span>Attendance rate</span>
+                  <strong id="insightRate">0%</strong>
+                </li>
+                <li>
+                  <span>Late arrivals</span>
+                  <strong id="lateCount">0</strong>
+                </li>
+                <li>
+                  <span>Last updated</span>
+                  <strong id="dateLabel">Today</strong>
+                </li>
+              </ul>
+            </aside>
+          </div>
+
+          <section class="panel class-panel">
+            <div class="panel-header">
+              <h2>Year Level Overview</h2>
+              <label class="filter-wrap">
+                <span>Filter</span>
+                <select id="classFilter">
+                  <option value="all">All Year Levels</option>
                 </select>
               </label>
-
-              <label class="field">
-                <span>Status</span>
-                <select id="studentStatus" name="studentStatus" required>
-                  <option value="Present">Present</option>
-                  <option value="Late">Late</option>
-                  <option value="Absent">Absent</option>
-                </select>
-              </label>
-
-              <label class="field">
-                <span>Check In Time</span>
-                <input id="checkInTime" name="checkInTime" type="time" />
-              </label>
             </div>
+            <div id="classCards" class="class-grid"></div>
+          </section>
 
-            <label class="field full-width">
-              <span>Notes</span>
-              <textarea id="studentNote" name="studentNote" rows="3" placeholder="Add a note or reason"></textarea>
-            </label>
-
-            <div class="form-actions">
-              <button type="submit" class="primary-btn" id="submitBtn">Save Record</button>
-              <button type="button" class="secondary-btn" id="cancelEditBtn" hidden>Cancel</button>
-              <button type="button" class="danger-btn" id="resetBtn">Reset Demo Data</button>
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h2>College Attendance Log</h2>
             </div>
-            <p id="formMessage" class="form-message" aria-live="polite"></p>
-          </form>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Status</th>
+                    <th>Check In</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceTable"></tbody>
+              </table>
+            </div>
+          </section>
         </section>
 
-        <section class="panel class-panel">
-          <div class="panel-header">
-            <h2>Year Level Overview</h2>
-            <label class="filter-wrap">
-              <span>Filter</span>
-              <select id="classFilter">
-                <option value="all">All Year Levels</option>
-              </select>
-            </label>
+        <section id="students" class="tab-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Student Profiles</h2>
+            </div>
+            <div id="studentProfiles" class="profiles-grid"></div>
           </div>
-          <div id="classCards" class="class-grid"></div>
         </section>
 
-        <section class="panel table-panel">
-          <div class="panel-header">
-            <h2>College Attendance Log</h2>
+        <section id="charts" class="tab-panel">
+          <div class="panel chart-panel">
+            <div class="panel-header">
+              <h2>Attendance Chart</h2>
+              <div class="chart-tabs" aria-label="chart views">
+                <button type="button" class="chart-tab active" data-chart="daily">Daily</button>
+                <button type="button" class="chart-tab" data-chart="weekly">Weekly</button>
+                <button type="button" class="chart-tab" data-chart="monthly">Monthly</button>
+              </div>
+            </div>
+            <div id="chartContainer" class="chart-card"></div>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Class</th>
-                  <th>Status</th>
-                  <th>Check In</th>
-                  <th>Notes</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="attendanceTable"></tbody>
-            </table>
+        </section>
+
+        <section id="reports" class="tab-panel">
+          <div class="panel reports-panel">
+            <div class="panel-header">
+              <h2>Reports</h2>
+            </div>
+
+            <div class="report-grid">
+              <article class="report-card">
+                <span class="report-label">Daily Summary</span>
+                <h3>Attendance overview</h3>
+                <p>Download a concise report covering total present, late, and absent counts.</p>
+              </article>
+
+              <article class="report-card">
+                <span class="report-label">Weekly Report</span>
+                <h3>Trend comparison</h3>
+                <p>Track participation by week to identify attendance changes at a glance.</p>
+              </article>
+
+              <article class="report-card">
+                <span class="report-label">Monthly Report</span>
+                <h3>Academic period summary</h3>
+                <p>Review a full monthly breakdown for academic planning and staff updates.</p>
+              </article>
+            </div>
+
+            <div class="report-actions">
+              <button type="button" class="primary-btn" id="downloadExcelBtn">Download Excel</button>
+              <button type="button" class="secondary-btn" id="downloadPdfBtn">Download PDF</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="admin" class="tab-panel">
+          <div class="panel admin-panel">
+            <div class="panel-header">
+              <h2>Admin Login</h2>
+            </div>
+            <form id="adminLoginForm" class="login-form">
+              <label class="field">
+                <span>Email</span>
+                <input type="email" id="adminEmail" placeholder="admin@northview.edu" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input type="password" id="adminPassword" placeholder="Enter password" required />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="primary-btn">Login</button>
+              </div>
+              <p id="adminLoginMessage" class="form-message" aria-live="polite"></p>
+            </form>
           </div>
         </section>
       </main>
+    </div>
+
+    <div id="loginModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card">
+        <div class="panel-header compact">
+          <h2>Admin Access</h2>
+          <button type="button" class="close-btn" id="closeLoginModal" aria-label="Close login">×</button>
+        </div>
+        <form id="modalLoginForm" class="login-form">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="modalAdminEmail" placeholder="admin@northview.edu" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" id="modalAdminPassword" placeholder="Enter password" required />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Login</button>
+          </div>
+          <p id="modalLoginMessage" class="form-message" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
 
     <script src="app.js"></script>

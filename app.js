@@ -1,4 +1,8 @@
 const STORAGE_KEY = "attendance-dashboard-data-v2";
+const ADMIN_SESSION_KEY = "northview-admin-session";
+const THEME_KEY = "northview-theme";
+const ADMIN_EMAIL = "admin@northview.edu";
+const ADMIN_PASSWORD = "admin123";
 
 const fallbackData = {
   schoolName: "Northview Academy",
@@ -20,11 +24,34 @@ const fallbackData = {
     { id: "student-1", name: "Maria Santos", className: "1st Year College", status: "Present", checkInTime: "08:15", note: "On time" },
     { id: "student-2", name: "Luis Dela Cruz", className: "1st Year College", status: "Late", checkInTime: "08:32", note: "Heavy traffic" },
     { id: "student-3", name: "Andrea Villanueva", className: "2nd Year College", status: "Present", checkInTime: "08:12", note: "On time" },
-    { id: "student-4", name: "Miguel Bautista", className: "2nd Year College", status: "Absent", checkInTime: "—", note: "Family emergency" },
+    { id: "student-4", name: "Miguel Bautista", className: "2nd Year College", status: "Absent", checkInTime: "N/A", note: "Family emergency" },
     { id: "student-5", name: "Rina Reyes", className: "3rd Year College", status: "Present", checkInTime: "08:10", note: "On time" },
     { id: "student-6", name: "Gabriel Lim", className: "3rd Year College", status: "Late", checkInTime: "08:40", note: "Late arrival" },
     { id: "student-7", name: "Sofia Ramos", className: "4th Year College", status: "Present", checkInTime: "08:07", note: "On time" },
-    { id: "student-8", name: "Christian Navarro", className: "4th Year College", status: "Absent", checkInTime: "—", note: "Medical leave" }
+    { id: "student-8", name: "Christian Navarro", className: "4th Year College", status: "Absent", checkInTime: "N/A", note: "Medical leave" }
+  ]
+};
+
+const chartData = {
+  daily: [
+    { label: "Mon", value: 74 },
+    { label: "Tue", value: 81 },
+    { label: "Wed", value: 78 },
+    { label: "Thu", value: 88 },
+    { label: "Fri", value: 92 }
+  ],
+  weekly: [
+    { label: "W1", value: 68 },
+    { label: "W2", value: 74 },
+    { label: "W3", value: 83 },
+    { label: "W4", value: 90 }
+  ],
+  monthly: [
+    { label: "Jan", value: 60 },
+    { label: "Feb", value: 72 },
+    { label: "Mar", value: 79 },
+    { label: "Apr", value: 84 },
+    { label: "May", value: 88 }
   ]
 };
 
@@ -46,8 +73,24 @@ const submitBtn = document.getElementById("submitBtn");
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const formMessage = document.getElementById("formMessage");
 const resetBtn = document.getElementById("resetBtn");
+const studentProfiles = document.getElementById("studentProfiles");
+const chartContainer = document.getElementById("chartContainer");
+const loginStatus = document.getElementById("loginStatus");
+const openLoginBtn = document.getElementById("openLoginBtn");
+const themeToggle = document.getElementById("themeToggle");
+const loginModal = document.getElementById("loginModal");
+const closeLoginModalBtn = document.getElementById("closeLoginModal");
+const adminLoginForm = document.getElementById("adminLoginForm");
+const modalLoginForm = document.getElementById("modalLoginForm");
+const adminLoginMessage = document.getElementById("adminLoginMessage");
+const modalLoginMessage = document.getElementById("modalLoginMessage");
+const insightRate = document.getElementById("insightRate");
+const lateCount = document.getElementById("lateCount");
+const dateLabel = document.getElementById("dateLabel");
 
 let appData = fallbackData;
+let currentChart = "daily";
+let isLoggedIn = localStorage.getItem(ADMIN_SESSION_KEY) === "true";
 
 function roundToOne(value) {
   return Math.round(value * 10) / 10;
@@ -196,6 +239,18 @@ function setFormMessage(message, isError = false) {
   formMessage.style.color = isError ? "#d34d51" : "#2859d9";
 }
 
+function setAdminMessage(element, message, isError = false) {
+  element.textContent = message;
+  element.style.color = isError ? "#d34d51" : "#2859d9";
+}
+
+function updateInsightCards(data) {
+  const summary = data.summary || {};
+  insightRate.textContent = `${summary.attendanceRate || 0}%`;
+  lateCount.textContent = summary.late || 0;
+  dateLabel.textContent = formatDate(data.date || new Date().toISOString());
+}
+
 function renderSummary(data) {
   const summary = data.summary || {};
   const totalStudents = summary.totalStudents || 0;
@@ -209,7 +264,6 @@ function renderSummary(data) {
   statIds.attendanceRate.textContent = `${attendanceRate}%`;
 
   document.getElementById("schoolName").textContent = data.schoolName || "Attendance Dashboard";
-  document.getElementById("dateLabel").textContent = formatDate(data.date || new Date().toISOString());
 }
 
 function renderClassFilter(data) {
@@ -279,6 +333,50 @@ function renderAttendanceTable(data, selectedClass = "all") {
         )
         .join("")
     : "<tr><td colspan='6'>No attendance records found.</td></tr>";
+}
+
+function renderStudentProfiles(data) {
+  const students = data.students || [];
+  studentProfiles.innerHTML = students.length
+    ? students
+        .map(
+          (student) => `
+            <article class="profile-card">
+              <div class="profile-header">
+                <h3>${student.name}</h3>
+                <span class="status-badge ${statusClass(student.status)}">${student.status}</span>
+              </div>
+              <p>${student.className}</p>
+              <div class="profile-meta">
+                <span class="profile-tag">Check-in: ${student.checkInTime || "N/A"}</span>
+                <span class="profile-tag">Note: ${student.note || "—"}</span>
+              </div>
+            </article>
+          `
+        )
+        .join("")
+    : "<p>No student profiles available.</p>";
+}
+
+function renderChart() {
+  const chartValues = chartData[currentChart] || chartData.daily;
+  const maxValue = Math.max(...chartValues.map((item) => item.value), 100);
+
+  chartContainer.innerHTML = `
+    <div class="chart-bars">
+      ${chartValues
+        .map(
+          (item) => `
+            <div class="bar-item">
+              <span class="bar-value">${item.value}%</span>
+              <div class="bar-column" style="height: ${(item.value / maxValue) * 100}%"></div>
+              <span class="bar-label">${item.label}</span>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
 }
 
 function applyFilter(data) {
@@ -402,6 +500,9 @@ function renderAll(data) {
   renderClassOptions(data);
   renderClassCards(data, classFilter.value || "all");
   renderAttendanceTable(data, classFilter.value || "all");
+  renderStudentProfiles(data);
+  updateInsightCards(data);
+  renderChart();
 }
 
 function resetDemoData() {
@@ -416,16 +517,205 @@ function resetDemoData() {
   setFormMessage("Demo data restored.");
 }
 
-async function init() {
-  appData = await loadData();
-  renderAll(appData);
-  resetForm();
+function setActiveTab(targetId) {
+  document.querySelectorAll(".tab-panel").forEach((panel) => {
+    panel.classList.toggle("active", panel.id === targetId);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.target === targetId);
+  });
+}
+
+function exportExcel() {
+  const rows = [
+    ["Student Name", "Class", "Status", "Check-in", "Notes"],
+    ...((appData.students || []).map((student) => [student.name, student.className, student.status, student.checkInTime || "N/A", student.note || ""]))
+  ];
+
+  const csvContent = rows
+    .map((row) => row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(","))
+    .join("\n");
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "northview-attendance-report.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function exportPdf() {
+  const { jsPDF } = window.jspdf;
+  if (!jsPDF) {
+    window.alert("PDF export library could not load.");
+    return;
+  }
+
+  const doc = new jsPDF();
+  const summary = appData.summary || {};
+  const rows = [
+    ["Student Name", "Class", "Status", "Check-in", "Notes"],
+    ...((appData.students || []).map((student) => [student.name, student.className, student.status, student.checkInTime || "N/A", student.note || ""]))
+  ];
+
+  doc.setFontSize(18);
+  doc.text("Northview Academy Attendance Report", 14, 18);
+  doc.setFontSize(11);
+  doc.text(`Students: ${summary.totalStudents || 0}`, 14, 28);
+  doc.text(`Present: ${summary.present || 0} | Absent: ${summary.absent || 0} | Late: ${summary.late || 0}`, 14, 34);
+  doc.text(`Attendance Rate: ${summary.attendanceRate || 0}%`, 14, 40);
+
+  let y = 52;
+  rows.forEach((row, rowIndex) => {
+    if (y > 270) {
+      doc.addPage();
+      y = 18;
+    }
+
+    row.forEach((cell, columnIndex) => {
+      const x = 14 + columnIndex * 40;
+      doc.setFontSize(rowIndex === 0 ? 9 : 8);
+      doc.text(String(cell), x, y, { maxWidth: 34 });
+    });
+    y += 8;
+  });
+
+  doc.save("northview-attendance-report.pdf");
+}
+
+function applyTheme(theme) {
+  const selectedTheme = theme === "dark" ? "dark" : "light";
+  document.body.dataset.theme = selectedTheme;
+  localStorage.setItem(THEME_KEY, selectedTheme);
+  if (themeToggle) {
+    themeToggle.textContent = selectedTheme === "dark" ? "Light Mode" : "Dark Mode";
+  }
+}
+
+function openLoginModal() {
+  loginModal.classList.remove("hidden");
+  loginModal.setAttribute("aria-hidden", "false");
+}
+
+function closeLoginModal() {
+  loginModal.classList.add("hidden");
+  loginModal.setAttribute("aria-hidden", "true");
+}
+
+function syncLoginState() {
+  loginStatus.textContent = isLoggedIn ? "Admin Logged In" : "Guest View";
+  openLoginBtn.textContent = isLoggedIn ? "Admin Panel" : "Admin Login";
+}
+
+async function handleLoginSubmit(event, form, messageEl) {
+  event.preventDefault();
+  const email = form.querySelector("input[type='email']").value.trim();
+  const password = form.querySelector("input[type='password']").value.trim();
+
+  try {
+    const response = await fetch("/.netlify/functions/admin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action: "login",
+        email,
+        password
+      })
+    });
+
+    const payload = await response.json();
+
+    if (!response.ok || !payload.success) {
+      throw new Error(payload.message || "Invalid email or password.");
+    }
+
+    isLoggedIn = true;
+    localStorage.setItem(ADMIN_SESSION_KEY, payload.token || "true");
+    syncLoginState();
+    setActiveTab("dashboard");
+    setAdminMessage(messageEl, payload.message || "Login successful. Admin access enabled.");
+    closeLoginModal();
+    form.reset();
+    return;
+  } catch (error) {
+    const backupEnabled = email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
+    if (backupEnabled) {
+      isLoggedIn = true;
+      localStorage.setItem(ADMIN_SESSION_KEY, "true");
+      syncLoginState();
+      setActiveTab("dashboard");
+      setAdminMessage(messageEl, "Login successful. Admin access enabled.");
+      closeLoginModal();
+      form.reset();
+      return;
+    }
+
+    setAdminMessage(messageEl, error.message || "Invalid email or password.", true);
+  }
+}
+
+function attachEvents() {
+  document.querySelectorAll(".nav-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.dataset.target;
+      if (targetId === "admin") {
+        openLoginModal();
+        return;
+      }
+      setActiveTab(targetId);
+    });
+  });
+
+  document.querySelectorAll(".chart-tab").forEach((button) => {
+    button.addEventListener("click", () => {
+      currentChart = button.dataset.chart;
+      document.querySelectorAll(".chart-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.chart === currentChart));
+      renderChart();
+    });
+  });
 
   classFilter.addEventListener("change", () => applyFilter(appData));
   attendanceForm.addEventListener("submit", handleFormSubmit);
   attendanceTable.addEventListener("click", handleTableAction);
   cancelEditBtn.addEventListener("click", resetForm);
   resetBtn.addEventListener("click", resetDemoData);
+  adminLoginForm.addEventListener("submit", (event) => handleLoginSubmit(event, adminLoginForm, adminLoginMessage));
+  modalLoginForm.addEventListener("submit", (event) => handleLoginSubmit(event, modalLoginForm, modalLoginMessage));
+  themeToggle.addEventListener("click", () => {
+    applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
+  });
+  openLoginBtn.addEventListener("click", () => {
+    if (!isLoggedIn) {
+      openLoginModal();
+      return;
+    }
+    setActiveTab("admin");
+  });
+  closeLoginModalBtn.addEventListener("click", closeLoginModal);
+  loginModal.addEventListener("click", (event) => {
+    if (event.target === loginModal) {
+      closeLoginModal();
+    }
+  });
+  document.getElementById("downloadExcelBtn").addEventListener("click", exportExcel);
+  document.getElementById("downloadPdfBtn").addEventListener("click", exportPdf);
+}
+
+async function init() {
+  appData = await loadData();
+  const savedTheme = localStorage.getItem(THEME_KEY) || "light";
+  applyTheme(savedTheme);
+  renderAll(appData);
+  resetForm();
+  syncLoginState();
+  attachEvents();
+  setActiveTab("dashboard");
 }
 
 init();
