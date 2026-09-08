@@ -1,11 +1,11 @@
 const STORAGE_KEY = "attendance-dashboard-data-v2";
-const ADMIN_SESSION_KEY = "northview-admin-session";
-const THEME_KEY = "northview-theme";
-const ADMIN_EMAIL = "admin@northview.edu";
+const ADMIN_SESSION_KEY = "tacligan-admin-session";
+const THEME_KEY = "tacligan-theme";
+const ADMIN_EMAIL = "admin@tacliganhighschool.edu";
 const ADMIN_PASSWORD = "admin123";
 
 const fallbackData = {
-  schoolName: "Northview Academy",
+  schoolName: "Tacligan High School",
   date: "2026-08-31",
   summary: {
     totalStudents: 8,
@@ -541,7 +541,7 @@ function exportExcel() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "northview-attendance-report.csv";
+  link.download = "tacligan-attendance-report.csv";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -563,7 +563,7 @@ function exportPdf() {
   ];
 
   doc.setFontSize(18);
-  doc.text("Northview Academy Attendance Report", 14, 18);
+  doc.text("Tacligan High School Attendance Report", 14, 18);
   doc.setFontSize(11);
   doc.text(`Students: ${summary.totalStudents || 0}`, 14, 28);
   doc.text(`Present: ${summary.present || 0} | Absent: ${summary.absent || 0} | Late: ${summary.late || 0}`, 14, 34);
@@ -584,7 +584,7 @@ function exportPdf() {
     y += 8;
   });
 
-  doc.save("northview-attendance-report.pdf");
+  doc.save("tacligan-attendance-report.pdf");
 }
 
 function applyTheme(theme) {

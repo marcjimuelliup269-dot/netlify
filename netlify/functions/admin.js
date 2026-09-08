@@ -28,7 +28,7 @@ exports.handler = async function handler(event) {
       };
     }
 
-    const validEmail = "admin@northview.edu";
+    const validEmail = "admin@tacliganhighschool.edu";
     const validPassword = "admin123";
 
     if (email === validEmail && password === validPassword) {
@@ -40,7 +40,7 @@ exports.handler = async function handler(event) {
         body: JSON.stringify({
           success: true,
           message: "Login successful. Admin access enabled.",
-          token: "northview-admin-token"
+          token: "tacligan-admin-token"
         })
       };
     }
