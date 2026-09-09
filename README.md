@@ -23,6 +23,18 @@ Then open:
 4. In Netlify CMS, sign in using Git Gateway or your configured auth.
 5. Edit the data in `attendance.json` from the CMS admin panel.
 
+## Admin account recovery
+
+The login page supports account creation, logout, and password recovery. Password recovery sends a time-limited verification code to the configured admin Gmail address through Resend.
+
+Set these Netlify environment variables before using account recovery:
+
+- `RESEND_API_KEY` — API key from Resend
+- `ADMIN_GMAIL` — Gmail address that receives verification codes
+- `RESEND_FROM_EMAIL` — optional verified sender, such as `Tacligan Attendance <noreply@your-domain.com>`
+
+The default demo account is `admin@tacliganhighschool.edu` with password `admin123`. Local development stores created accounts in `.netlify/admin-accounts.json` so they remain available after restarting Netlify Dev. For durable production storage across serverless instances, connect the function to a database or Netlify Blobs.
+
 ## Files
 
 - `index.html` — dashboard frontend

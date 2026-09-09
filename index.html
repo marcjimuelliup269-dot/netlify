@@ -26,7 +26,6 @@
           <button class="nav-btn" data-target="students">Student Profiles</button>
           <button class="nav-btn" data-target="charts">Attendance Chart</button>
           <button class="nav-btn" data-target="reports">Reports</button>
-          <button class="nav-btn" data-target="admin">Admin Login</button>
         </nav>
       </aside>
 
@@ -35,11 +34,12 @@
           <div>
             <p class="eyebrow">School Overview</p>
             <h1 id="schoolName">Attendance Dashboard</h1>
+            <p class="welcome-message" id="welcomeMessage">Welcome, Admin</p>
           </div>
           <div class="topbar-actions">
             <span class="login-status" id="loginStatus">Guest View</span>
             <button type="button" class="secondary-btn" id="themeToggle" aria-label="Toggle dark mode">Dark Mode</button>
-            <button type="button" class="primary-btn" id="openLoginBtn">Admin Login</button>
+            <button type="button" class="danger-btn" id="logoutBtn">Log Out</button>
           </div>
         </header>
 
@@ -79,13 +79,15 @@
                   </label>
 
                   <label class="field">
-                    <span>Year Level</span>
+                    <span>Grade Level</span>
                     <select id="studentClass" name="studentClass" required>
-                      <option value="">Select year level</option>
-                      <option value="1st Year College">1st Year College</option>
-                      <option value="2nd Year College">2nd Year College</option>
-                      <option value="3rd Year College">3rd Year College</option>
-                      <option value="4th Year College">4th Year College</option>
+                      <option value="">Select grade level</option>
+                      <option value="Grade 7">Grade 7</option>
+                      <option value="Grade 8">Grade 8</option>
+                      <option value="Grade 9">Grade 9</option>
+                      <option value="Grade 10">Grade 10</option>
+                      <option value="Grade 11">Grade 11</option>
+                      <option value="Grade 12">Grade 12</option>
                     </select>
                   </label>
 
@@ -93,15 +95,10 @@
                     <span>Status</span>
                     <select id="studentStatus" name="studentStatus" required>
                       <option value="Present">Present</option>
-                      <option value="Late">Late</option>
                       <option value="Absent">Absent</option>
                     </select>
                   </label>
 
-                  <label class="field">
-                    <span>Check In Time</span>
-                    <input id="checkInTime" name="checkInTime" type="time" />
-                  </label>
                 </div>
 
                 <label class="field full-width">
@@ -125,7 +122,7 @@
               <ul class="insight-list">
                 <li>
                   <span>Peak attendance</span>
-                  <strong>1st Year College</strong>
+                  <strong>Grade 7</strong>
                 </li>
                 <li>
                   <span>Attendance rate</span>
@@ -145,11 +142,11 @@
 
           <section class="panel class-panel">
             <div class="panel-header">
-              <h2>Year Level Overview</h2>
+              <h2>Grade Level Overview</h2>
               <label class="filter-wrap">
                 <span>Filter</span>
                 <select id="classFilter">
-                  <option value="all">All Year Levels</option>
+                  <option value="all">All Grade Levels</option>
                 </select>
               </label>
             </div>
@@ -158,7 +155,11 @@
 
           <section class="panel table-panel">
             <div class="panel-header">
-              <h2>College Attendance Log</h2>
+              <h2>High School Attendance Log</h2>
+              <label class="filter-wrap search-wrap">
+                <span>Search</span>
+                <input id="studentSearch" type="search" placeholder="Search student name" aria-label="Search student name" />
+              </label>
             </div>
             <div class="table-wrap">
               <table>
@@ -182,6 +183,10 @@
           <div class="panel">
             <div class="panel-header">
               <h2>Student Profiles</h2>
+              <label class="filter-wrap search-wrap">
+                <span>Search</span>
+                <input id="profileSearch" type="search" placeholder="Search student name" aria-label="Search student profiles" />
+              </label>
             </div>
             <div id="studentProfiles" class="profiles-grid"></div>
           </div>
@@ -234,37 +239,21 @@
           </div>
         </section>
 
-        <section id="admin" class="tab-panel">
-          <div class="panel admin-panel">
-            <div class="panel-header">
-              <h2>Admin Login</h2>
-            </div>
-            <form id="adminLoginForm" class="login-form">
-              <label class="field">
-                <span>Email</span>
-                <input type="email" id="adminEmail" placeholder="admin@tacliganhighschool.edu" required />
-              </label>
-              <label class="field">
-                <span>Password</span>
-                <input type="password" id="adminPassword" placeholder="Enter password" required />
-              </label>
-              <div class="form-actions">
-                <button type="submit" class="primary-btn">Login</button>
-              </div>
-              <p id="adminLoginMessage" class="form-message" aria-live="polite"></p>
-            </form>
-          </div>
-        </section>
       </main>
     </div>
 
     <div id="loginModal" class="modal hidden" aria-hidden="true">
       <div class="modal-card">
         <div class="panel-header compact">
-          <h2>Admin Access</h2>
-          <button type="button" class="close-btn" id="closeLoginModal" aria-label="Close login">×</button>
+          <h2 id="authTitle">Admin Access</h2>
         </div>
-        <form id="modalLoginForm" class="login-form">
+        <div class="auth-switcher" role="tablist" aria-label="Account actions">
+          <button type="button" class="auth-switch active" data-auth-view="login">Login</button>
+          <button type="button" class="auth-switch" data-auth-view="create">Create Account</button>
+          <button type="button" class="auth-switch" data-auth-view="forgot">Forgot Password</button>
+        </div>
+
+        <form id="modalLoginForm" class="login-form auth-view" data-auth-panel="login">
           <label class="field">
             <span>Email</span>
             <input type="email" id="modalAdminEmail" placeholder="admin@tacliganhighschool.edu" required />
@@ -277,6 +266,48 @@
             <button type="submit" class="primary-btn">Login</button>
           </div>
           <p id="modalLoginMessage" class="form-message" aria-live="polite"></p>
+        </form>
+
+        <form id="createAccountForm" class="login-form auth-view hidden" data-auth-panel="create">
+          <label class="field">
+            <span>Full Name</span>
+            <input type="text" id="createName" placeholder="Enter admin name" autocomplete="name" required />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="createEmail" placeholder="admin@example.com" autocomplete="email" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" id="createPassword" minlength="8" required />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Create Account</button>
+          </div>
+          <p id="createAccountMessage" class="form-message" aria-live="polite"></p>
+        </form>
+
+        <form id="forgotPasswordForm" class="login-form auth-view hidden" data-auth-panel="forgot">
+          <label class="field">
+            <span>Account Email</span>
+            <input type="email" id="forgotEmail" required />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Proceed to Change Password</button>
+          </div>
+          <p id="forgotPasswordMessage" class="form-message" aria-live="polite"></p>
+        </form>
+
+        <form id="resetPasswordForm" class="login-form auth-view hidden" data-auth-panel="reset">
+          <input type="hidden" id="resetEmail" />
+          <label class="field">
+            <span>New Password</span>
+            <input type="password" id="resetPassword" minlength="8" required />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Change Password</button>
+          </div>
+          <p id="resetPasswordMessage" class="form-message" aria-live="polite"></p>
         </form>
       </div>
     </div>

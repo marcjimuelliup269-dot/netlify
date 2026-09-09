@@ -1,27 +1,1023 @@
 {
   "schoolName": "Tacligan High School",
-  "date": "2026-08-31",
+  "date": "2026-09-08",
   "summary": {
-    "totalStudents": 8,
-    "present": 4,
-    "absent": 2,
-    "late": 2,
-    "attendanceRate": 50
+    "totalStudents": 120,
+    "present": 84,
+    "absent": 12,
+    "late": 24,
+    "attendanceRate": 70
   },
   "classes": [
-    { "name": "1st Year College", "totalStudents": 2, "present": 1, "absent": 1, "late": 1, "attendanceRate": 50 },
-    { "name": "2nd Year College", "totalStudents": 2, "present": 1, "absent": 1, "late": 1, "attendanceRate": 50 },
-    { "name": "3rd Year College", "totalStudents": 2, "present": 1, "absent": 0, "late": 1, "attendanceRate": 50 },
-    { "name": "4th Year College", "totalStudents": 2, "present": 1, "absent": 0, "late": 1, "attendanceRate": 50 }
+    {
+      "name": "Grade 7",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 8",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 9",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 10",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 11",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 12",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    }
   ],
   "students": [
-    { "id": "student-1", "name": "Maria Santos", "className": "1st Year College", "status": "Present", "checkInTime": "08:15", "note": "On time" },
-    { "id": "student-2", "name": "Luis Dela Cruz", "className": "1st Year College", "status": "Late", "checkInTime": "08:32", "note": "Heavy traffic" },
-    { "id": "student-3", "name": "Andrea Villanueva", "className": "2nd Year College", "status": "Present", "checkInTime": "08:12", "note": "On time" },
-    { "id": "student-4", "name": "Miguel Bautista", "className": "2nd Year College", "status": "Absent", "checkInTime": "N/A", "note": "Family emergency" },
-    { "id": "student-5", "name": "Rina Reyes", "className": "3rd Year College", "status": "Present", "checkInTime": "08:10", "note": "On time" },
-    { "id": "student-6", "name": "Gabriel Lim", "className": "3rd Year College", "status": "Late", "checkInTime": "08:40", "note": "Late arrival" },
-    { "id": "student-7", "name": "Sofia Ramos", "className": "4th Year College", "status": "Present", "checkInTime": "08:07", "note": "On time" },
-    { "id": "student-8", "name": "Christian Navarro", "className": "4th Year College", "status": "Absent", "checkInTime": "N/A", "note": "Medical leave" }
+    {
+      "id": "student-7-1",
+      "name": "Maria Santos",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-2",
+      "name": "Luis Dela Cruz",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-3",
+      "name": "Andrea Villanueva",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-4",
+      "name": "Miguel Bautista",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-5",
+      "name": "Rina Reyes",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-6",
+      "name": "Gabriel Lim",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-7",
+      "name": "Sofia Ramos",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-8",
+      "name": "Christian Navarro",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-9",
+      "name": "Ariana Pascual",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-10",
+      "name": "Jasper Torres",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-11",
+      "name": "Mia Garcia",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-12",
+      "name": "Raphael Aquino",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-13",
+      "name": "Carlina Mendoza",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-14",
+      "name": "Ethan Marquez",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-15",
+      "name": "Nikka Rosales",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-16",
+      "name": "Renzo Delgado",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-17",
+      "name": "Claire Ortega",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-18",
+      "name": "Jericho Bermudez",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-19",
+      "name": "Patricia Dizon",
+      "className": "Grade 7",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-7-20",
+      "name": "Jackielyn Luna",
+      "className": "Grade 7",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-8-1",
+      "name": "Dianne Rivera",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-2",
+      "name": "Rafael Panganiban",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-3",
+      "name": "Angela Valdez",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-4",
+      "name": "Mark Razon",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-5",
+      "name": "Jessa Rico",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-6",
+      "name": "Cyrus Cordero",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-7",
+      "name": "Shaira Santiago",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-8",
+      "name": "Joshua Bernabe",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-9",
+      "name": "Alexis Catacutan",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-10",
+      "name": "Pamela Pineda",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-11",
+      "name": "Marlon Banaag",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-12",
+      "name": "Yvette Peña",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-13",
+      "name": "Frances Abad",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-14",
+      "name": "Lance Magno",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-15",
+      "name": "Mica Salazar",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-16",
+      "name": "Noel De Leon",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-17",
+      "name": "Ella Manalo",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-18",
+      "name": "Christian Talag",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-19",
+      "name": "Ariane Reyes",
+      "className": "Grade 8",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-8-20",
+      "name": "Lourdes Dela Rosa",
+      "className": "Grade 8",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-9-1",
+      "name": "Dana Santos",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-2",
+      "name": "Renz Villanueva",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-3",
+      "name": "Mae Bautista",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-4",
+      "name": "Jerome Reyes",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-5",
+      "name": "Celine Lim",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-6",
+      "name": "Owen Ramos",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-7",
+      "name": "Gwen Navarro",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-8",
+      "name": "Aldrin Pascual",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-9",
+      "name": "Rhea Torres",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-10",
+      "name": "Mica Garcia",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-11",
+      "name": "Trisha Aquino",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-12",
+      "name": "Dante Mendoza",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-13",
+      "name": "Freya Marquez",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-14",
+      "name": "Calix Rosales",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-15",
+      "name": "Princess Ortega",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-16",
+      "name": "Miko Delgado",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-17",
+      "name": "Lianne Dizon",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-18",
+      "name": "Ryan Luna",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-19",
+      "name": "Mariz Razon",
+      "className": "Grade 9",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-9-20",
+      "name": "Kurt Rivera",
+      "className": "Grade 9",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-10-1",
+      "name": "Karla Panganiban",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-2",
+      "name": "Benedict Valdez",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-3",
+      "name": "Jessie Rico",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-4",
+      "name": "Mika Cordero",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-5",
+      "name": "Jude Santiago",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-6",
+      "name": "Lyn Bernabe",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-7",
+      "name": "Ralph Catacutan",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-8",
+      "name": "Neri Pineda",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-9",
+      "name": "Mylene Banaag",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-10",
+      "name": "Alfred Peña",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-11",
+      "name": "Rhey Abad",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-12",
+      "name": "Vince Magno",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-13",
+      "name": "Ariana Salazar",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-14",
+      "name": "Rico De Leon",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-15",
+      "name": "Mira Manalo",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-16",
+      "name": "Jett Santos",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-17",
+      "name": "Angelica Cruz",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-18",
+      "name": "Oliver Dela Cruz",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-19",
+      "name": "Micahe Villanueva",
+      "className": "Grade 10",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-10-20",
+      "name": "Zia Bautista",
+      "className": "Grade 10",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-11-1",
+      "name": "Elaine Reyes",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-2",
+      "name": "Rex Lim",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-3",
+      "name": "Carmela Ramos",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-4",
+      "name": "Briane Navarro",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-5",
+      "name": "Aiza Pascual",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-6",
+      "name": "Rael Torres",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-7",
+      "name": "Janelle Garcia",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-8",
+      "name": "Christian Aquino",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-9",
+      "name": "Kaye Mendoza",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-10",
+      "name": "Harvey Marquez",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-11",
+      "name": "Veronica Rosales",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-12",
+      "name": "Emil Ortega",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-13",
+      "name": "Claire Delgado",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-14",
+      "name": "Paolo Dizon",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-15",
+      "name": "Rose Luna",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-16",
+      "name": "Marvin Razon",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-17",
+      "name": "Cecile Rivera",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-18",
+      "name": "Justin Panganiban",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-19",
+      "name": "Jhen Valdez",
+      "className": "Grade 11",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-11-20",
+      "name": "Nicole Rico",
+      "className": "Grade 11",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-12-1",
+      "name": "Aron Cordero",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-2",
+      "name": "Sheena Santiago",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-3",
+      "name": "Kian Bernabe",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-4",
+      "name": "Elaiza Catacutan",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-5",
+      "name": "Brett Pineda",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-6",
+      "name": "Angela Banaag",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-7",
+      "name": "Kyle Peña",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-8",
+      "name": "Leah Abad",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-9",
+      "name": "Jayson Magno",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-10",
+      "name": "Ariane Salazar",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-11",
+      "name": "Karl De Leon",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-12",
+      "name": "Samantha Manalo",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-13",
+      "name": "Daryl Santos",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-14",
+      "name": "Joana Cruz",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-15",
+      "name": "Andrei Dela Cruz",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-16",
+      "name": "Nia Villanueva",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-17",
+      "name": "Vincent Bautista",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-18",
+      "name": "Camille Reyes",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-19",
+      "name": "Adrian Lim",
+      "className": "Grade 12",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-12-20",
+      "name": "Lian Ramos",
+      "className": "Grade 12",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    }
   ]
 }

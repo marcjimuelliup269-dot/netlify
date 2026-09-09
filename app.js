@@ -1,36 +1,1050 @@
-const STORAGE_KEY = "attendance-dashboard-data-v2";
+const STORAGE_KEY = "attendance-dashboard-data-v3";
 const ADMIN_SESSION_KEY = "tacligan-admin-session";
+const ADMIN_NAME_KEY = "tacligan-admin-name";
 const THEME_KEY = "tacligan-theme";
 const ADMIN_EMAIL = "admin@tacliganhighschool.edu";
 const ADMIN_PASSWORD = "admin123";
+const LOCAL_ACCOUNTS_KEY = "tacligan-local-accounts";
+const LOCAL_ACCOUNTS = {
+  [ADMIN_EMAIL]: { password: ADMIN_PASSWORD, name: "Tacligan Administrator" },
+  "marcjimuelliup269@gmail.com": { password: "marcliup1234", name: "Marc Jimuel Liup" }
+};
+
+function getLocalAccounts() {
+  try {
+    return { ...LOCAL_ACCOUNTS, ...JSON.parse(localStorage.getItem(LOCAL_ACCOUNTS_KEY) || "{}") };
+  } catch (error) {
+    return { ...LOCAL_ACCOUNTS };
+  }
+}
+
+function saveLocalAccounts(accounts) {
+  localStorage.setItem(LOCAL_ACCOUNTS_KEY, JSON.stringify(accounts));
+}
 
 const fallbackData = {
-  schoolName: "Tacligan High School",
-  date: "2026-08-31",
-  summary: {
-    totalStudents: 8,
-    present: 4,
-    absent: 2,
-    late: 2,
-    attendanceRate: 50
+  "schoolName": "Tacligan High School",
+  "date": "2026-09-08",
+  "summary": {
+    "totalStudents": 120,
+    "present": 84,
+    "absent": 12,
+    "late": 24,
+    "attendanceRate": 70
   },
-  classes: [
-    { name: "1st Year College", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
-    { name: "2nd Year College", totalStudents: 2, present: 1, absent: 1, late: 1, attendanceRate: 50 },
-    { name: "3rd Year College", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 },
-    { name: "4th Year College", totalStudents: 2, present: 1, absent: 0, late: 1, attendanceRate: 50 }
+  "classes": [
+    {
+      "name": "Grade 7",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 8",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 9",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 10",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 11",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    },
+    {
+      "name": "Grade 12",
+      "totalStudents": 20,
+      "present": 14,
+      "absent": 2,
+      "late": 4,
+      "attendanceRate": 70
+    }
   ],
-  students: [
-    { id: "student-1", name: "Maria Santos", className: "1st Year College", status: "Present", checkInTime: "08:15", note: "On time" },
-    { id: "student-2", name: "Luis Dela Cruz", className: "1st Year College", status: "Late", checkInTime: "08:32", note: "Heavy traffic" },
-    { id: "student-3", name: "Andrea Villanueva", className: "2nd Year College", status: "Present", checkInTime: "08:12", note: "On time" },
-    { id: "student-4", name: "Miguel Bautista", className: "2nd Year College", status: "Absent", checkInTime: "N/A", note: "Family emergency" },
-    { id: "student-5", name: "Rina Reyes", className: "3rd Year College", status: "Present", checkInTime: "08:10", note: "On time" },
-    { id: "student-6", name: "Gabriel Lim", className: "3rd Year College", status: "Late", checkInTime: "08:40", note: "Late arrival" },
-    { id: "student-7", name: "Sofia Ramos", className: "4th Year College", status: "Present", checkInTime: "08:07", note: "On time" },
-    { id: "student-8", name: "Christian Navarro", className: "4th Year College", status: "Absent", checkInTime: "N/A", note: "Medical leave" }
+  "students": [
+    {
+      "id": "student-7-1",
+      "name": "Maria Santos",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-2",
+      "name": "Luis Dela Cruz",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-3",
+      "name": "Andrea Villanueva",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-4",
+      "name": "Miguel Bautista",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-5",
+      "name": "Rina Reyes",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-6",
+      "name": "Gabriel Lim",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-7",
+      "name": "Sofia Ramos",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-8",
+      "name": "Christian Navarro",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-9",
+      "name": "Ariana Pascual",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-10",
+      "name": "Jasper Torres",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-11",
+      "name": "Mia Garcia",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-12",
+      "name": "Raphael Aquino",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-13",
+      "name": "Carlina Mendoza",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-14",
+      "name": "Ethan Marquez",
+      "className": "Grade 7",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-7-15",
+      "name": "Nikka Rosales",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-16",
+      "name": "Renzo Delgado",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-17",
+      "name": "Claire Ortega",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-18",
+      "name": "Jericho Bermudez",
+      "className": "Grade 7",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-7-19",
+      "name": "Patricia Dizon",
+      "className": "Grade 7",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-7-20",
+      "name": "Jackielyn Luna",
+      "className": "Grade 7",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-8-1",
+      "name": "Dianne Rivera",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-2",
+      "name": "Rafael Panganiban",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-3",
+      "name": "Angela Valdez",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-4",
+      "name": "Mark Razon",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-5",
+      "name": "Jessa Rico",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-6",
+      "name": "Cyrus Cordero",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-7",
+      "name": "Shaira Santiago",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-8",
+      "name": "Joshua Bernabe",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-9",
+      "name": "Alexis Catacutan",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-10",
+      "name": "Pamela Pineda",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-11",
+      "name": "Marlon Banaag",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-12",
+      "name": "Yvette Peña",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-13",
+      "name": "Frances Abad",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-14",
+      "name": "Lance Magno",
+      "className": "Grade 8",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-8-15",
+      "name": "Mica Salazar",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-16",
+      "name": "Noel De Leon",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-17",
+      "name": "Ella Manalo",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-18",
+      "name": "Christian Talag",
+      "className": "Grade 8",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-8-19",
+      "name": "Ariane Reyes",
+      "className": "Grade 8",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-8-20",
+      "name": "Lourdes Dela Rosa",
+      "className": "Grade 8",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-9-1",
+      "name": "Dana Santos",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-2",
+      "name": "Renz Villanueva",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-3",
+      "name": "Mae Bautista",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-4",
+      "name": "Jerome Reyes",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-5",
+      "name": "Celine Lim",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-6",
+      "name": "Owen Ramos",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-7",
+      "name": "Gwen Navarro",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-8",
+      "name": "Aldrin Pascual",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-9",
+      "name": "Rhea Torres",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-10",
+      "name": "Mica Garcia",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-11",
+      "name": "Trisha Aquino",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-12",
+      "name": "Dante Mendoza",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-13",
+      "name": "Freya Marquez",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-14",
+      "name": "Calix Rosales",
+      "className": "Grade 9",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-9-15",
+      "name": "Princess Ortega",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-16",
+      "name": "Miko Delgado",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-17",
+      "name": "Lianne Dizon",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-18",
+      "name": "Ryan Luna",
+      "className": "Grade 9",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-9-19",
+      "name": "Mariz Razon",
+      "className": "Grade 9",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-9-20",
+      "name": "Kurt Rivera",
+      "className": "Grade 9",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-10-1",
+      "name": "Karla Panganiban",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-2",
+      "name": "Benedict Valdez",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-3",
+      "name": "Jessie Rico",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-4",
+      "name": "Mika Cordero",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-5",
+      "name": "Jude Santiago",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-6",
+      "name": "Lyn Bernabe",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-7",
+      "name": "Ralph Catacutan",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-8",
+      "name": "Neri Pineda",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-9",
+      "name": "Mylene Banaag",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-10",
+      "name": "Alfred Peña",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-11",
+      "name": "Rhey Abad",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-12",
+      "name": "Vince Magno",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-13",
+      "name": "Ariana Salazar",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-14",
+      "name": "Rico De Leon",
+      "className": "Grade 10",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-10-15",
+      "name": "Mira Manalo",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-16",
+      "name": "Jett Santos",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-17",
+      "name": "Angelica Cruz",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-18",
+      "name": "Oliver Dela Cruz",
+      "className": "Grade 10",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-10-19",
+      "name": "Micahe Villanueva",
+      "className": "Grade 10",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-10-20",
+      "name": "Zia Bautista",
+      "className": "Grade 10",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-11-1",
+      "name": "Elaine Reyes",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-2",
+      "name": "Rex Lim",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-3",
+      "name": "Carmela Ramos",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-4",
+      "name": "Briane Navarro",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-5",
+      "name": "Aiza Pascual",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-6",
+      "name": "Rael Torres",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-7",
+      "name": "Janelle Garcia",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-8",
+      "name": "Christian Aquino",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-9",
+      "name": "Kaye Mendoza",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-10",
+      "name": "Harvey Marquez",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-11",
+      "name": "Veronica Rosales",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-12",
+      "name": "Emil Ortega",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-13",
+      "name": "Claire Delgado",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-14",
+      "name": "Paolo Dizon",
+      "className": "Grade 11",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-11-15",
+      "name": "Rose Luna",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-16",
+      "name": "Marvin Razon",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-17",
+      "name": "Cecile Rivera",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-18",
+      "name": "Justin Panganiban",
+      "className": "Grade 11",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-11-19",
+      "name": "Jhen Valdez",
+      "className": "Grade 11",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-11-20",
+      "name": "Nicole Rico",
+      "className": "Grade 11",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-12-1",
+      "name": "Aron Cordero",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:50",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-2",
+      "name": "Sheena Santiago",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-3",
+      "name": "Kian Bernabe",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-4",
+      "name": "Elaiza Catacutan",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-5",
+      "name": "Brett Pineda",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:52",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-6",
+      "name": "Angela Banaag",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:57",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-7",
+      "name": "Kyle Peña",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:59",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-8",
+      "name": "Leah Abad",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-9",
+      "name": "Jayson Magno",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:54",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-10",
+      "name": "Ariane Salazar",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:56",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-11",
+      "name": "Karl De Leon",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:58",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-12",
+      "name": "Samantha Manalo",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "07:00",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-13",
+      "name": "Daryl Santos",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:53",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-14",
+      "name": "Joana Cruz",
+      "className": "Grade 12",
+      "status": "Present",
+      "checkInTime": "06:55",
+      "note": "On time"
+    },
+    {
+      "id": "student-12-15",
+      "name": "Andrei Dela Cruz",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-16",
+      "name": "Nia Villanueva",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-17",
+      "name": "Vincent Bautista",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-18",
+      "name": "Camille Reyes",
+      "className": "Grade 12",
+      "status": "Absent",
+      "checkInTime": "N/A",
+      "note": "Not present"
+    },
+    {
+      "id": "student-12-19",
+      "name": "Adrian Lim",
+      "className": "Grade 12",
+      "status": "Late",
+      "checkInTime": "07:05",
+      "note": "Late arrival"
+    },
+    {
+      "id": "student-12-20",
+      "name": "Lian Ramos",
+      "className": "Grade 12",
+      "status": "Late",
+      "checkInTime": "07:08",
+      "note": "Late arrival"
+    }
   ]
-};
+}
 
 const chartData = {
   daily: [
@@ -65,6 +1079,8 @@ const statIds = {
 const classFilter = document.getElementById("classFilter");
 const classCardsContainer = document.getElementById("classCards");
 const attendanceTable = document.getElementById("attendanceTable");
+const studentSearch = document.getElementById("studentSearch");
+const profileSearch = document.getElementById("profileSearch");
 const studentClassField = document.getElementById("studentClass");
 const attendanceForm = document.getElementById("attendanceForm");
 const recordIdField = document.getElementById("recordId");
@@ -76,14 +1092,19 @@ const resetBtn = document.getElementById("resetBtn");
 const studentProfiles = document.getElementById("studentProfiles");
 const chartContainer = document.getElementById("chartContainer");
 const loginStatus = document.getElementById("loginStatus");
-const openLoginBtn = document.getElementById("openLoginBtn");
+const welcomeMessage = document.getElementById("welcomeMessage");
 const themeToggle = document.getElementById("themeToggle");
 const loginModal = document.getElementById("loginModal");
-const closeLoginModalBtn = document.getElementById("closeLoginModal");
-const adminLoginForm = document.getElementById("adminLoginForm");
 const modalLoginForm = document.getElementById("modalLoginForm");
-const adminLoginMessage = document.getElementById("adminLoginMessage");
 const modalLoginMessage = document.getElementById("modalLoginMessage");
+const createAccountForm = document.getElementById("createAccountForm");
+const createAccountMessage = document.getElementById("createAccountMessage");
+const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+const forgotPasswordMessage = document.getElementById("forgotPasswordMessage");
+const resetPasswordForm = document.getElementById("resetPasswordForm");
+const resetPasswordMessage = document.getElementById("resetPasswordMessage");
+const logoutBtn = document.getElementById("logoutBtn");
+const authTitle = document.getElementById("authTitle");
 const insightRate = document.getElementById("insightRate");
 const lateCount = document.getElementById("lateCount");
 const dateLabel = document.getElementById("dateLabel");
@@ -91,9 +1112,55 @@ const dateLabel = document.getElementById("dateLabel");
 let appData = fallbackData;
 let currentChart = "daily";
 let isLoggedIn = localStorage.getItem(ADMIN_SESSION_KEY) === "true";
+let adminName = localStorage.getItem(ADMIN_NAME_KEY) || "Admin";
+let pendingResetEmail = "";
+const SCHOOL_START_TIME = "07:00";
 
 function roundToOne(value) {
   return Math.round(value * 10) / 10;
+}
+
+function timeToMinutes(timeValue) {
+  if (!timeValue || timeValue === "N/A") return null;
+  const match = /^\d{1,2}:\d{2}$/.exec(String(timeValue).trim());
+  if (!match) return null;
+
+  const [hours, minutes] = String(timeValue).split(":").map(Number);
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) return null;
+  return hours * 60 + minutes;
+}
+
+function getCurrentCheckInTime() {
+  return new Date().toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+}
+
+function getEffectiveStatus(student) {
+  const rawStatus = String(student?.status || "Present");
+  const checkInTime = String(student?.checkInTime || "");
+  if (rawStatus === "Absent") return "Absent";
+
+  const lateThreshold = timeToMinutes(SCHOOL_START_TIME);
+  const arrivalMinutes = timeToMinutes(checkInTime);
+  if (arrivalMinutes !== null && lateThreshold !== null && arrivalMinutes > lateThreshold) {
+    return "Late";
+  }
+
+  return "Present";
+}
+
+function deriveStatusFromForm(status) {
+  if (status === "Absent") return "Absent";
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const lateThreshold = timeToMinutes(SCHOOL_START_TIME);
+  if (lateThreshold !== null && currentMinutes > lateThreshold) {
+    return "Late";
+  }
+  return "Present";
 }
 
 function ensureStudentId(student, index) {
@@ -111,8 +1178,18 @@ function ensureStudentId(student, index) {
 function isLegacyData(data) {
   const classNames = (data.classes || []).map((item) => item.name || "");
   const students = data.students || [];
-  const hasOldSchoolNames = classNames.some((name) => ["Grade 1", "Grade 2", "Grade 3", "Grade 4"].includes(name));
-  const hasOldStudentNames = students.some((student) => (student && student.className && ["Grade 1", "Grade 2", "Grade 3", "Grade 4"].includes(student.className)));
+  const legacyClassNames = [
+    "Grade 1",
+    "Grade 2",
+    "Grade 3",
+    "Grade 4",
+    "1st Year College",
+    "2nd Year College",
+    "3rd Year College",
+    "4th Year College"
+  ];
+  const hasOldSchoolNames = classNames.some((name) => legacyClassNames.includes(name));
+  const hasOldStudentNames = students.some((student) => (student && student.className && legacyClassNames.includes(student.className)));
   return hasOldSchoolNames || hasOldStudentNames;
 }
 
@@ -125,6 +1202,7 @@ function buildClassesFromStudents(students) {
   const map = new Map();
 
   students.forEach((student) => {
+    const effectiveStatus = getEffectiveStatus(student);
     const className = student.className || "Unassigned";
     if (!map.has(className)) {
       map.set(className, {
@@ -139,9 +1217,9 @@ function buildClassesFromStudents(students) {
     const current = map.get(className);
     current.totalStudents += 1;
 
-    if (student.status === "Present") current.present += 1;
-    if (student.status === "Absent") current.absent += 1;
-    if (student.status === "Late") current.late += 1;
+    if (effectiveStatus === "Present") current.present += 1;
+    if (effectiveStatus === "Absent") current.absent += 1;
+    if (effectiveStatus === "Late") current.late += 1;
   });
 
   return [...map.values()].map((entry) => {
@@ -155,9 +1233,9 @@ function buildClassesFromStudents(students) {
 
 function buildSummary(students) {
   const totalStudents = students.length;
-  const present = students.filter((student) => student.status === "Present").length;
-  const absent = students.filter((student) => student.status === "Absent").length;
-  const late = students.filter((student) => student.status === "Late").length;
+  const present = students.filter((student) => getEffectiveStatus(student) === "Present").length;
+  const absent = students.filter((student) => getEffectiveStatus(student) === "Absent").length;
+  const late = students.filter((student) => getEffectiveStatus(student) === "Late").length;
   const attendanceRate = totalStudents ? roundToOne((present / totalStudents) * 100) : 0;
 
   return {
@@ -177,6 +1255,40 @@ function normalizeData(data) {
     classes: buildClassesFromStudents(students),
     summary: buildSummary(students)
   };
+}
+
+function applyTargetDistribution(data) {
+  const students = (data.students || []).map(ensureStudentId);
+  const groupedStudents = new Map();
+
+  students.forEach((student) => {
+    const classStudents = groupedStudents.get(student.className) || [];
+    classStudents.push(student);
+    groupedStudents.set(student.className, classStudents);
+  });
+
+  groupedStudents.forEach((classStudents) => {
+    const presentCount = Math.round(classStudents.length * 0.7);
+    const absentCount = Math.round(classStudents.length * 0.1);
+
+    classStudents.forEach((student, index) => {
+      if (index < presentCount) {
+        student.status = "Present";
+        student.checkInTime = student.checkInTime === "N/A" ? "06:55" : student.checkInTime;
+        student.note = "On time";
+      } else if (index < presentCount + absentCount) {
+        student.status = "Absent";
+        student.checkInTime = "N/A";
+        student.note = "Not present";
+      } else {
+        student.status = "Late";
+        student.checkInTime = "07:05";
+        student.note = "Late arrival";
+      }
+    });
+  });
+
+  return { ...data, students };
 }
 
 function saveToLocalStorage(data) {
@@ -209,11 +1321,11 @@ async function loadData() {
   try {
     const response = await fetch("attendance.json", { cache: "no-store" });
     if (!response.ok) throw new Error("No attendance data found");
-    const data = normalizeData(await response.json());
+    const data = normalizeData(applyTargetDistribution(await response.json()));
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     return data;
   } catch (error) {
-    const data = normalizeData(fallbackData);
+    const data = normalizeData(applyTargetDistribution(fallbackData));
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     return data;
   }
@@ -253,7 +1365,15 @@ function updateInsightCards(data) {
   const summary = data.summary || {};
   insightRate.textContent = `${summary.attendanceRate || 0}%`;
   lateCount.textContent = summary.late || 0;
-  dateLabel.textContent = formatDate(data.date || new Date().toISOString());
+  const now = new Date();
+  dateLabel.textContent = now.toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit"
+  });
 }
 
 function renderSummary(data) {
@@ -276,14 +1396,14 @@ function renderClassFilter(data) {
   const options = ["all", ...classNames.filter(Boolean)];
 
   classFilter.innerHTML = options
-    .map((name) => `<option value="${name}">${name === "all" ? "All Classes" : name}</option>`)
+    .map((name) => `<option value="${name}">${name === "all" ? "All Grade Levels" : name}</option>`)
     .join("");
 }
 
 function renderClassOptions(data) {
   const uniqueClasses = [...new Set((data.classes || []).map((item) => item.name).concat((data.students || []).map((student) => student.className)))].filter(Boolean);
   studentClassField.innerHTML = [
-    '<option value="">Select class</option>',
+    '<option value="">Select grade level</option>',
     ...uniqueClasses.map((name) => `<option value="${name}">${name}</option>`)
   ].join("");
 }
@@ -315,18 +1435,26 @@ function renderClassCards(data, selectedClass = "all") {
     : "<p>No class data available.</p>";
 }
 
+function filterStudentsByQuery(students, query) {
+  const searchText = String(query || "").trim().toLowerCase();
+  if (!searchText) return students;
+  return students.filter((student) => String(student.name || "").toLowerCase().includes(searchText));
+}
+
 function renderAttendanceTable(data, selectedClass = "all") {
   const students = data.students || [];
-  const visibleStudents = selectedClass === "all" ? students : students.filter((student) => student.className === selectedClass);
+  const classFiltered = selectedClass === "all" ? students : students.filter((student) => student.className === selectedClass);
+  const visibleStudents = filterStudentsByQuery(classFiltered, studentSearch ? studentSearch.value : "");
 
   attendanceTable.innerHTML = visibleStudents.length
     ? visibleStudents
-        .map(
-          (student) => `
+        .map((student) => {
+          const effectiveStatus = getEffectiveStatus(student);
+          return `
             <tr>
               <td>${student.name}</td>
               <td>${student.className}</td>
-              <td><span class="status-badge ${statusClass(student.status)}">${student.status}</span></td>
+              <td><span class="status-badge ${statusClass(effectiveStatus)}">${effectiveStatus}</span></td>
               <td>${student.checkInTime || "—"}</td>
               <td>${student.note || "—"}</td>
               <td>
@@ -334,22 +1462,24 @@ function renderAttendanceTable(data, selectedClass = "all") {
                 <button class="mini-btn delete-btn" data-action="delete" data-id="${student.id}">Delete</button>
               </td>
             </tr>
-          `
-        )
+          `;
+        })
         .join("")
     : "<tr><td colspan='6'>No attendance records found.</td></tr>";
 }
 
 function renderStudentProfiles(data) {
   const students = data.students || [];
-  studentProfiles.innerHTML = students.length
-    ? students
-        .map(
-          (student) => `
+  const visibleStudents = filterStudentsByQuery(students, profileSearch ? profileSearch.value : "");
+  studentProfiles.innerHTML = visibleStudents.length
+    ? visibleStudents
+        .map((student) => {
+          const effectiveStatus = getEffectiveStatus(student);
+          return `
             <article class="profile-card">
               <div class="profile-header">
                 <h3>${student.name}</h3>
-                <span class="status-badge ${statusClass(student.status)}">${student.status}</span>
+                <span class="status-badge ${statusClass(effectiveStatus)}">${effectiveStatus}</span>
               </div>
               <p>${student.className}</p>
               <div class="profile-meta">
@@ -357,8 +1487,8 @@ function renderStudentProfiles(data) {
                 <span class="profile-tag">Note: ${student.note || "—"}</span>
               </div>
             </article>
-          `
-        )
+          `;
+        })
         .join("")
     : "<p>No student profiles available.</p>";
 }
@@ -404,7 +1534,6 @@ function setFormForEdit(student) {
   document.getElementById("studentName").value = student.name;
   studentClassField.value = student.className;
   document.getElementById("studentStatus").value = student.status;
-  document.getElementById("checkInTime").value = student.checkInTime === "N/A" ? "" : student.checkInTime;
   document.getElementById("studentNote").value = student.note || "";
   formTitle.textContent = "Edit Attendance Record";
   submitBtn.textContent = "Update Record";
@@ -419,7 +1548,6 @@ function handleFormSubmit(event) {
   const studentName = String(formData.get("studentName") || "").trim();
   const className = String(formData.get("studentClass") || "").trim();
   const status = String(formData.get("studentStatus") || "Present");
-  const checkInTime = String(formData.get("checkInTime") || "");
   const note = String(formData.get("studentNote") || "").trim();
 
   if (!studentName || !className) {
@@ -427,6 +1555,8 @@ function handleFormSubmit(event) {
     return;
   }
 
+  const currentCheckInTime = getCurrentCheckInTime();
+  const finalStatus = deriveStatusFromForm(status);
   let nextStudents = [...(appData.students || [])];
 
   if (recordId) {
@@ -436,8 +1566,8 @@ function handleFormSubmit(event) {
         ...student,
         name: studentName,
         className,
-        status,
-        checkInTime: checkInTime || "N/A",
+        status: finalStatus,
+        checkInTime: currentCheckInTime,
         note
       };
     });
@@ -447,8 +1577,8 @@ function handleFormSubmit(event) {
       id: `student-${Date.now()}`,
       name: studentName,
       className,
-      status,
-      checkInTime: checkInTime || "N/A",
+      status: finalStatus,
+      checkInTime: currentCheckInTime,
       note
     };
     nextStudents = [...nextStudents, newStudent];
@@ -601,6 +1731,19 @@ function applyTheme(theme) {
   }
 }
 
+function updateLiveClock() {
+  if (!dateLabel) return;
+  const now = new Date();
+  dateLabel.textContent = now.toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+}
+
 function openLoginModal() {
   loginModal.classList.remove("hidden");
   loginModal.setAttribute("aria-hidden", "false");
@@ -611,9 +1754,42 @@ function closeLoginModal() {
   loginModal.setAttribute("aria-hidden", "true");
 }
 
+function switchAuthView(view) {
+  const titles = {
+    login: "Admin Access",
+    create: "Create Admin Account",
+    forgot: "Forgot Password",
+    reset: "Change Password"
+  };
+  authTitle.textContent = titles[view] || titles.login;
+  document.querySelectorAll(".auth-view").forEach((panel) => {
+    panel.classList.toggle("hidden", panel.dataset.authPanel !== view);
+  });
+  document.querySelectorAll(".auth-switch").forEach((button) => {
+    button.classList.toggle("active", button.dataset.authView === view);
+  });
+}
+
+async function postAuthRequest(body) {
+  const response = await fetch("/.netlify/functions/admin", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  const responseText = await response.text();
+  let payload;
+  try {
+    payload = JSON.parse(responseText);
+  } catch (error) {
+    throw new Error("The local preview is not running Netlify Functions. Start this project with `netlify dev` to use account creation and password recovery.");
+  }
+  if (!response.ok || !payload.success) throw new Error(payload.message || "Unable to complete the request.");
+  return payload;
+}
+
 function syncLoginState() {
-  loginStatus.textContent = isLoggedIn ? "Admin Logged In" : "Guest View";
-  openLoginBtn.textContent = isLoggedIn ? "Admin Panel" : "Admin Login";
+  if (loginStatus) loginStatus.textContent = isLoggedIn ? "Admin Logged In" : "Guest View";
+  if (welcomeMessage) welcomeMessage.textContent = `Welcome, ${adminName}`;
 }
 
 async function handleLoginSubmit(event, form, messageEl) {
@@ -642,18 +1818,24 @@ async function handleLoginSubmit(event, form, messageEl) {
 
     isLoggedIn = true;
     localStorage.setItem(ADMIN_SESSION_KEY, payload.token || "true");
+    adminName = payload.name || "Admin";
+    localStorage.setItem(ADMIN_NAME_KEY, adminName);
     syncLoginState();
+    document.querySelector(".app-shell").classList.remove("locked");
     setActiveTab("dashboard");
     setAdminMessage(messageEl, payload.message || "Login successful. Admin access enabled.");
     closeLoginModal();
     form.reset();
     return;
   } catch (error) {
-    const backupEnabled = email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
-    if (backupEnabled) {
+    const localAccount = getLocalAccounts()[email];
+    if (localAccount && localAccount.password === password) {
       isLoggedIn = true;
       localStorage.setItem(ADMIN_SESSION_KEY, "true");
+      adminName = localAccount.name;
+      localStorage.setItem(ADMIN_NAME_KEY, adminName);
       syncLoginState();
+      document.querySelector(".app-shell").classList.remove("locked");
       setActiveTab("dashboard");
       setAdminMessage(messageEl, "Login successful. Admin access enabled.");
       closeLoginModal();
@@ -665,14 +1847,113 @@ async function handleLoginSubmit(event, form, messageEl) {
   }
 }
 
+async function handleCreateAccount(event) {
+  event.preventDefault();
+  const name = document.getElementById("createName").value.trim();
+  const email = document.getElementById("createEmail").value.trim().toLowerCase();
+  const password = document.getElementById("createPassword").value;
+
+  try {
+    const payload = await postAuthRequest({
+      action: "create-account",
+      name,
+      email,
+      password
+    });
+    setAdminMessage(createAccountMessage, payload.message);
+    createAccountForm.reset();
+    switchAuthView("login");
+  } catch (error) {
+    if (!name || !email || password.length < 8) {
+      setAdminMessage(createAccountMessage, "Provide a name, valid email, and password with at least 8 characters.", true);
+      return;
+    }
+
+    const localAccounts = getLocalAccounts();
+    if (localAccounts[email]) {
+      setAdminMessage(createAccountMessage, "That account already exists.", true);
+      return;
+    }
+
+    localAccounts[email] = { name, password };
+    saveLocalAccounts(localAccounts);
+    setAdminMessage(createAccountMessage, "Account created. You can now log in.");
+    createAccountForm.reset();
+    switchAuthView("login");
+  }
+}
+
+async function handleForgotPassword(event) {
+  event.preventDefault();
+  const email = document.getElementById("forgotEmail").value.trim();
+  try {
+    const payload = await postAuthRequest({ action: "check-account", email });
+    pendingResetEmail = email;
+    document.getElementById("resetEmail").value = email;
+    setAdminMessage(forgotPasswordMessage, payload.message);
+    switchAuthView("reset");
+  } catch (error) {
+    if (!getLocalAccounts()[email]) {
+      setAdminMessage(forgotPasswordMessage, "No account was found for that email.", true);
+      return;
+    }
+
+    pendingResetEmail = email;
+    document.getElementById("resetEmail").value = email;
+    setAdminMessage(forgotPasswordMessage, "Account found. You can now set a new password.");
+    switchAuthView("reset");
+  }
+}
+
+async function handleResetPassword(event) {
+  event.preventDefault();
+  const email = pendingResetEmail || document.getElementById("resetEmail").value;
+  const password = document.getElementById("resetPassword").value;
+
+  try {
+    const payload = await postAuthRequest({
+      action: "reset-password",
+      email,
+      password
+    });
+    setAdminMessage(resetPasswordMessage, payload.message);
+    resetPasswordForm.reset();
+    pendingResetEmail = "";
+    switchAuthView("login");
+  } catch (error) {
+    if (password.length < 8) {
+      setAdminMessage(resetPasswordMessage, "Password must be at least 8 characters.", true);
+      return;
+    }
+
+    const localAccounts = getLocalAccounts();
+    if (!localAccounts[email]) {
+      setAdminMessage(resetPasswordMessage, "No account was found for that email.", true);
+      return;
+    }
+    localAccounts[email].password = password;
+    saveLocalAccounts(localAccounts);
+    setAdminMessage(resetPasswordMessage, "Password changed successfully. You can now log in.");
+    resetPasswordForm.reset();
+    pendingResetEmail = "";
+    switchAuthView("login");
+  }
+}
+
+function handleLogout() {
+  isLoggedIn = false;
+  localStorage.removeItem(ADMIN_SESSION_KEY);
+  localStorage.removeItem(ADMIN_NAME_KEY);
+  adminName = "Admin";
+  document.querySelector(".app-shell").classList.add("locked");
+  switchAuthView("login");
+  openLoginModal();
+}
+
 function attachEvents() {
   document.querySelectorAll(".nav-btn").forEach((button) => {
     button.addEventListener("click", () => {
       const targetId = button.dataset.target;
-      if (targetId === "admin") {
-        openLoginModal();
-        return;
-      }
       setActiveTab(targetId);
     });
   });
@@ -686,27 +1967,29 @@ function attachEvents() {
   });
 
   classFilter.addEventListener("change", () => applyFilter(appData));
+  if (studentSearch) {
+    studentSearch.addEventListener("input", () => applyFilter(appData));
+  }
+  if (profileSearch) {
+    profileSearch.addEventListener("input", () => renderStudentProfiles(appData));
+  }
   attendanceForm.addEventListener("submit", handleFormSubmit);
   attendanceTable.addEventListener("click", handleTableAction);
   cancelEditBtn.addEventListener("click", resetForm);
   resetBtn.addEventListener("click", resetDemoData);
-  adminLoginForm.addEventListener("submit", (event) => handleLoginSubmit(event, adminLoginForm, adminLoginMessage));
   modalLoginForm.addEventListener("submit", (event) => handleLoginSubmit(event, modalLoginForm, modalLoginMessage));
+  createAccountForm.addEventListener("submit", handleCreateAccount);
+  forgotPasswordForm.addEventListener("submit", handleForgotPassword);
+  resetPasswordForm.addEventListener("submit", handleResetPassword);
+  document.querySelectorAll(".auth-switch").forEach((button) => {
+    button.addEventListener("click", () => switchAuthView(button.dataset.authView));
+  });
+  logoutBtn.addEventListener("click", handleLogout);
   themeToggle.addEventListener("click", () => {
     applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
   });
-  openLoginBtn.addEventListener("click", () => {
-    if (!isLoggedIn) {
-      openLoginModal();
-      return;
-    }
-    setActiveTab("admin");
-  });
-  closeLoginModalBtn.addEventListener("click", closeLoginModal);
   loginModal.addEventListener("click", (event) => {
-    if (event.target === loginModal) {
-      closeLoginModal();
-    }
+    if (event.target === loginModal && isLoggedIn) closeLoginModal();
   });
   document.getElementById("downloadExcelBtn").addEventListener("click", exportExcel);
   document.getElementById("downloadPdfBtn").addEventListener("click", exportPdf);
@@ -720,7 +2003,17 @@ async function init() {
   resetForm();
   syncLoginState();
   attachEvents();
-  setActiveTab("dashboard");
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
+  const appShell = document.querySelector(".app-shell");
+  if (isLoggedIn) {
+    appShell.classList.remove("locked");
+    setActiveTab("dashboard");
+  } else {
+    appShell.classList.add("locked");
+    switchAuthView("login");
+    openLoginModal();
+  }
 }
 
 init();
