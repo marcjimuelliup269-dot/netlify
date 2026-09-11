@@ -1772,12 +1772,21 @@ function switchAuthView(view) {
 
 async function postAuthRequest(body) {
   const endpoints = ["/.netlify/functions/admin", "auth.php"];
+  let lastError = null;
+
   for (const endpoint of endpoints) {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
+    let response;
+    try {
+      response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+    } catch (error) {
+      lastError = error;
+      continue;
+    }
+
     const responseText = await response.text();
     let payload;
     try {
@@ -1786,9 +1795,15 @@ async function postAuthRequest(body) {
       if (response.status === 404 && endpoint !== endpoints[endpoints.length - 1]) continue;
       throw new Error("The account service is unavailable. Start Netlify Dev or enable the XAMPP MySQL database.");
     }
-    if (!response.ok || !payload.success) throw new Error(payload.message || "Unable to complete the request.");
+
+    if (response.status === 404 && endpoint !== endpoints[endpoints.length - 1] && !payload.success) continue;
+    if (!response.ok || !payload.success) {
+      throw new Error(payload.message || payload.error || `Account service returned HTTP ${response.status}.`);
+    }
     return payload;
   }
+
+  throw lastError || new Error("The account service is unavailable.");
 }
 
 function syncLoginState() {
@@ -1857,17 +1872,7 @@ async function handleCreateAccount(event) {
       return;
     }
 
-    const localAccounts = getLocalAccounts();
-    if (localAccounts[email]) {
-      setAdminMessage(createAccountMessage, "That account already exists.", true);
-      return;
-    }
-
-    localAccounts[email] = { name, password };
-    saveLocalAccounts(localAccounts);
-    setAdminMessage(createAccountMessage, "Account created. You can now log in.");
-    createAccountForm.reset();
-    switchAuthView("login");
+    setAdminMessage(createAccountMessage, error.message || "Unable to create the account.", true);
   }
 }
 
