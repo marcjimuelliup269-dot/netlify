@@ -1771,20 +1771,24 @@ function switchAuthView(view) {
 }
 
 async function postAuthRequest(body) {
-  const response = await fetch("/.netlify/functions/admin", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  const responseText = await response.text();
-  let payload;
-  try {
-    payload = JSON.parse(responseText);
-  } catch (error) {
-    throw new Error("The local preview is not running Netlify Functions. Start this project with `netlify dev` to use account creation and password recovery.");
+  const endpoints = ["/.netlify/functions/admin", "auth.php"];
+  for (const endpoint of endpoints) {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const responseText = await response.text();
+    let payload;
+    try {
+      payload = JSON.parse(responseText);
+    } catch (error) {
+      if (response.status === 404 && endpoint !== endpoints[endpoints.length - 1]) continue;
+      throw new Error("The account service is unavailable. Start Netlify Dev or enable the XAMPP MySQL database.");
+    }
+    if (!response.ok || !payload.success) throw new Error(payload.message || "Unable to complete the request.");
+    return payload;
   }
-  if (!response.ok || !payload.success) throw new Error(payload.message || "Unable to complete the request.");
-  return payload;
 }
 
 function syncLoginState() {
@@ -1798,23 +1802,7 @@ async function handleLoginSubmit(event, form, messageEl) {
   const password = form.querySelector("input[type='password']").value.trim();
 
   try {
-    const response = await fetch("/.netlify/functions/admin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        action: "login",
-        email,
-        password
-      })
-    });
-
-    const payload = await response.json();
-
-    if (!response.ok || !payload.success) {
-      throw new Error(payload.message || "Invalid email or password.");
-    }
+    const payload = await postAuthRequest({ action: "login", email, password });
 
     isLoggedIn = true;
     localStorage.setItem(ADMIN_SESSION_KEY, payload.token || "true");
@@ -1843,7 +1831,7 @@ async function handleLoginSubmit(event, form, messageEl) {
       return;
     }
 
-    setAdminMessage(messageEl, error.message || "Invalid email or password.", true);
+    setAdminMessage(messageEl, error.message || "Unable to log in.", true);
   }
 }
 

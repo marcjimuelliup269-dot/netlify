@@ -1,12 +1,19 @@
-# Local Login Setup
+# Login Setup
+
+## XAMPP
 
 1. Start Apache and MySQL from XAMPP.
-2. Open http://localhost/phpmyadmin
+2. Open http://localhost/phpmyadmin.
 3. Select **Import** and import `database.sql` from this project.
-4. Open http://localhost/netlify/
-5. Sign in with the account you provided.
+4. Open http://localhost/netlify/.
 
-The password is stored in MySQL as a one-way hash. The dashboard requires a PHP session, and direct requests to the raw `index.html` file are blocked by `.htaccess`.
+Accounts are stored in MySQL, so an account created from another device can log in through the same server address. Other devices must use the host computer's LAN IP instead of `localhost`.
+
+## Netlify
+
+The Netlify Function stores accounts in Netlify Blobs, which is shared across devices and serverless instances. Netlify automatically provides the Blobs connection for a deployed site. Run `netlify dev` for local Function testing.
+
+The PHP endpoint stores passwords in MySQL as one-way hashes. The Netlify Function uses its shared account store. Login displays `Account not found` when the email is not registered and `Invalid password` only when the account exists.
 
 The default local database settings are:
 

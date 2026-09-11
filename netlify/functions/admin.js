@@ -1,12 +1,21 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { getStore } = require("@netlify/blobs");
 
 const validEmail = "admin@tacliganhighschool.edu";
 const resetCodes = new Map();
 const accountsFile = path.join(process.cwd(), ".netlify", "admin-accounts.json");
+const accountsStore = getStore({ name: "admin-accounts", consistency: "strong" });
 
-function loadAccounts() {
+async function loadAccounts() {
+  try {
+    const savedAccounts = await accountsStore.get("accounts", { type: "json" });
+    if (savedAccounts && typeof savedAccounts === "object") return new Map(Object.entries(savedAccounts));
+  } catch (error) {
+    // Local Netlify previews may not have Blobs configured, so retain the file fallback there.
+  }
+
   try {
     const savedAccounts = JSON.parse(fs.readFileSync(accountsFile, "utf8"));
     return new Map(Object.entries(savedAccounts));
@@ -15,9 +24,17 @@ function loadAccounts() {
   }
 }
 
-function saveAccounts(accounts) {
+async function saveAccounts(accounts) {
+  const serializedAccounts = Object.fromEntries(accounts);
+  try {
+    await accountsStore.setJSON("accounts", serializedAccounts);
+    return;
+  } catch (error) {
+    // Local Netlify previews may not have Blobs configured, so retain the file fallback there.
+  }
+
   fs.mkdirSync(path.dirname(accountsFile), { recursive: true });
-  fs.writeFileSync(accountsFile, JSON.stringify(Object.fromEntries(accounts), null, 2));
+  fs.writeFileSync(accountsFile, JSON.stringify(serializedAccounts, null, 2));
 }
 
 function response(statusCode, payload) {
@@ -61,19 +78,18 @@ exports.handler = async function handler(event) {
     const body = JSON.parse(event.body || "{}");
     const action = body.action;
     const email = String(body.email || "").trim().toLowerCase();
-    const accounts = loadAccounts();
+    const accounts = await loadAccounts();
 
     if (action === "login") {
       const account = accounts.get(email);
-      if (account && account.password === body.password) {
-        return response(200, {
-          success: true,
-          message: "Login successful. Admin access enabled.",
-          token: "tacligan-admin-token",
-          name: account.name
-        });
-      }
-      return response(401, { success: false, message: "Invalid email or password." });
+      if (!account) return response(404, { success: false, message: "Account not found." });
+      if (account.password !== body.password) return response(401, { success: false, message: "Invalid password." });
+      return response(200, {
+        success: true,
+        message: "Login successful. Admin access enabled.",
+        token: "tacligan-admin-token",
+        name: account.name
+      });
     }
 
     if (action === "check-account") {
@@ -89,7 +105,7 @@ exports.handler = async function handler(event) {
       }
       if (accounts.has(email)) return response(409, { success: false, message: "That account already exists." });
       accounts.set(email, { name, password });
-      saveAccounts(accounts);
+      await saveAccounts(accounts);
       return response(201, { success: true, message: "Account created. You can now log in." });
     }
 
@@ -106,7 +122,7 @@ exports.handler = async function handler(event) {
       if (password.length < 8) return response(400, { success: false, message: "Password must be at least 8 characters." });
       if (!accounts.has(email)) return response(404, { success: false, message: "No account was found for that email." });
       accounts.get(email).password = password;
-      saveAccounts(accounts);
+      await saveAccounts(accounts);
       return response(200, { success: true, message: "Password changed successfully. You can now log in." });
     }
 
