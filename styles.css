@@ -158,6 +158,11 @@ body[data-theme="dark"] .status-badge {
   color: #fff;
 }
 
+body[data-theme="dark"] .profile-tag {
+  background: #dce7f5;
+  color: #14213d;
+}
+
 body[data-theme="dark"] .status-late {
   color: #fcd34d;
 }
